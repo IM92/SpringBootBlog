@@ -1,1 +1,1 @@
-"# SpringBootBlog" 
+"Spring Boot Blog Application" 
