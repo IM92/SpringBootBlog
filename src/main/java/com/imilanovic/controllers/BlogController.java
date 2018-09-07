@@ -1,8 +1,12 @@
 package com.imilanovic.controllers;
 
+import com.imilanovic.config.CustomUserDetails;
 import com.imilanovic.entities.Post;
 import com.imilanovic.service.PostService;
+import com.imilanovic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +21,9 @@ public class BlogController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping(value = "/")
     public String indexx(){
         return "index";
@@ -28,10 +35,13 @@ public class BlogController {
     }
 
     @PostMapping(value = "/post")
-    public void publishPosts(@RequestBody Post post){
+    public String publishPosts(@RequestBody Post post){
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(post.getDateCreated() == null)
             post.setDateCreated(new Date());
+        post.setCreator(userService.getUser(userDetails.getUsername()));
         postService.insert(post);
+        return "Post was published!";
     }
 
 }

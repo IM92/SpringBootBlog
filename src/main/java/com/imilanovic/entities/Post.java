@@ -1,9 +1,6 @@
 package com.imilanovic.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -17,14 +14,13 @@ public class Post {
     private String body;
     private Date dateCreated;
 
+    @ManyToOne
+    private User creator;
+
+
     public Post() {
     }
 
-    public Post(String title, String body, Date dateCreated) {
-        this.title = title;
-        this.body = body;
-        this.dateCreated = dateCreated;
-    }
 
     public Long getId() {
         return id;
@@ -38,7 +34,7 @@ public class Post {
         return title;
     }
 
-    public void setTittle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -56,5 +52,13 @@ public class Post {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }
