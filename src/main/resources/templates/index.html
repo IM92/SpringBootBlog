@@ -1,24 +1,29 @@
-<html>
-<head>
-    <title>Index</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
-</head>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header('Blog index')" />
 <body>
-<div id="root" class="container">
-    <div class="row">
-        <div class="twelve columns">
-            <h1>My blog</h1>
-            <ul>
-                <li v-for="post in posts">
-                    <h3>{{post.title}}</h3>
-                     <p>{{post.body}}</p>
-                    <hr/>
-                </li>
-            </ul>
+<div id="root">
+    <div th:replace="fragments/nav :: nav"></div>
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <h1>My blog</h1>
+                <ul>
+                    <li v-for="post in posts">
+                        <h3><a :href="getLink(post)">{{post.title}}</a></h3>
+                        <h6>Created by : {{post.creator.username}}</h6>
+                        <p>{{post.body}}</p>
+                        <hr />
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 </body>
+<div th:replace="fragments/footer :: foot"></div>
+
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://vuejs.org/js/vue.js"></script>
 <script>
