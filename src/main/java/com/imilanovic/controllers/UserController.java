@@ -31,6 +31,9 @@ public class UserController {
         return "User created!";
     }
 
-
+    @GetMapping(value = "/users")
+    public List<User> users(){
+        return userService.getAllUsers();
+    }
 
 }

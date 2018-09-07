@@ -20,12 +20,12 @@ public class BlogController {
 
     @Autowired
     private UserService userService;
-
+/*
     @GetMapping(value = "/")
-    public String indexx(){
+    public String index(){
         return "index";
     }
-
+*/
     @GetMapping(value = "/posts")
     public List<Post> posts(){
         return postService.getAllPosts();
